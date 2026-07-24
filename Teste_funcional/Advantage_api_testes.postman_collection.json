@@ -1,0 +1,235 @@
+{
+  "info": {
+    "_postman_id": "39c716b0-5f2e-4cfb-9ab3-425d89de9e90",
+    "name": "Advantage_api_testes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "27100233",
+    "_collection_link": "https://go.postman.co/collection/27100233-39c716b0-5f2e-4cfb-9ab3-425d89de9e90?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "API001 - Pesquisa produto existente",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code deve ser 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "pm.test(\"Resposta deve possuir produtos\", function () {\r",
+              "\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    pm.expect(response.length).to.be.greaterThan(0);\r",
+              "\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://www.advantageonlineshopping.com/catalog/api/v1/products/search?name=HP",
+          "protocol": "https",
+          "host": [
+            "www",
+            "advantageonlineshopping",
+            "com"
+          ],
+          "path": [
+            "catalog",
+            "api",
+            "v1",
+            "products",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "HP"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API002 - Produto inexistente",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code deve ser 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "pm.test(\"API deve indicar ausência de produtos\", function () {\r",
+              "\r",
+              "    let resposta = pm.response.text();\r",
+              "\r",
+              "    pm.expect(resposta).to.equal(\"-1\");\r",
+              "\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://www.advantageonlineshopping.com/catalog/api/v1/products/search?name=ProdutoXYZ999&quantityPerEachCategory=-1",
+          "protocol": "https",
+          "host": [
+            "www",
+            "advantageonlineshopping",
+            "com"
+          ],
+          "path": [
+            "catalog",
+            "api",
+            "v1",
+            "products",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "ProdutoXYZ999"
+            },
+            {
+              "key": "quantityPerEachCategory",
+              "value": "-1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API004 - Validar contrato JSON",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Produto deve possuir campos obrigatórios\", function(){\r",
+              "\r",
+              "let response = pm.response.json();\r",
+              "\r",
+              "response.forEach(produto => {\r",
+              "\r",
+              "pm.expect(produto).to.have.property(\"productId\");\r",
+              "\r",
+              "pm.expect(produto).to.have.property(\"productName\");\r",
+              "\r",
+              "});\r",
+              "\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://www.advantageonlineshopping.com/catalog/api/v1/products/search?name=HP&quantityPerEachCategory=-1",
+          "protocol": "https",
+          "host": [
+            "www",
+            "advantageonlineshopping",
+            "com"
+          ],
+          "path": [
+            "catalog",
+            "api",
+            "v1",
+            "products",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "HP",
+              "type": "text"
+            },
+            {
+              "key": "quantityPerEachCategory",
+              "value": "-1",
+              "type": "text"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
